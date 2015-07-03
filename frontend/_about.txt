@@ -1,0 +1,1 @@
+This directory contains the front-end for the site (the portions of the service that users will be accessing).
