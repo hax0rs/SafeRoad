@@ -28,8 +28,8 @@ class Crash(models.Model):
     roadway_feature = models.CharField(max_length = 128)
     speed_limit = models.CharField(max_length = 128)
     traffic_control = models.CharField(max_length = 128)
-    longitude = models.DecimalField(max_digits=12, decimal_places=6)
-    latitude = models.DecimalField(max_digits=12, decimal_places=6)
+    longitude = models.DecimalField(max_digits=12, decimal_places=6, db_index=True)
+    latitude = models.DecimalField(max_digits=12, decimal_places=6, db_index=True)
 
     def __str__(self):
         return "{},{},{},{},{}".format(self.longitude, self.latitude, \
