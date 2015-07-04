@@ -1,3 +1,5 @@
+var map, pointarray, heatmap;
+
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
 } 
@@ -29,14 +31,39 @@ function errorFunction() {
     initialize(mapOptions);
 }
 
+// initialise map panel
 function initialize(mapOptions) {
-  //Testing
-var map = new google.maps.Map(document.getElementById('map-canvas'),
-    mapOptions);
-
-  $.getJSON('api/location.php', function(data) {
-    $.each(data, function(key, val) {
-      newMapMarker(map, val);
+    //Testing
+    map = new google.maps.Map(document.getElementById('map-canvas'),
+                              mapOptions);
+    google.maps.event.addListener(map, 'idle', function(ev) {
+        update_zoom(map)
     });
-  });
+}
+
+// update the heatmap data based on current zoom level
+function update_zoom() {
+    /*var marker = new google.maps.Marker({
+        position: map.getCenter(),
+        map: map,
+        title: "Test marker"
+    });*/
+
+    var bounds = map.getBounds().toUrlValue(7).replace(",", "&");
+
+    alert('../api/sr_data/' + bounds)
+
+    var heatmapData = [];
+
+    $.getJSON('../api/sr_data/' + bounds, function(data) {
+        $.each(data, function(key, val) {
+
+        })
+    })
+
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatmapData,
+        dissipating: false,
+        map: map
+    })
 }
