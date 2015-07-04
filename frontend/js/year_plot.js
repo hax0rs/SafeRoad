@@ -18,7 +18,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 
-var API_PATH = "http://127.0.0.1:8000/sr_data/year/";
+var YEAR_API_PATH = "http://127.0.0.1:8000/sr_data/year/";
 
 
 // Prepare Data
@@ -59,7 +59,7 @@ function get_year_data (path) {
 }
 
 
-var lineChartData = get_year_data(API_PATH);
+var lineChartData = get_year_data(YEAR_API_PATH);
 
 
 
