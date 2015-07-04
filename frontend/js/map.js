@@ -44,13 +44,15 @@ function initialize(map_options) {
 // queries for new data based on current zoom level and updates heatmap
 function update_zoom(map, callback) {
     var bounds = map.getBounds().toUrlValue(7).split(",");
-    var json_call = ("../api/sr_data/" +
+    var json_call = ("http://127.0.0.1:8800/sr_data/" + // change this to django server URL
                      "?lon1=" + bounds[1] +
                      "&lat1=" + bounds[0] +
                      "&lon2=" + bounds[3] +
                      "&lat2=" + bounds[2]);
 
-    $.getJSON('json/', function(d) {
+    console.log(json_call);
+
+    $.getJSON(json_call, function(d) {
         callback(d["data"]);
     })
 }
