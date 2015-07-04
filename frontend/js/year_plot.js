@@ -65,7 +65,7 @@ function prepare_year_data (jsonData) {
                         "datasets" : [{
                             label: "My First dataset",
                             fillColor : "rgba(192,57,43,0.5)",
-                            strokeColor : "rgba(220,220,220,1)",
+                            strokeColor : "rgba(192,57,43,0.8)",
                             pointColor : "rgba(0,0,0,1)",
                             pointStrokeColor : "#000",
                             pointHighlightFill : "#fff",
