@@ -3,15 +3,9 @@
 
 ##  What is it?
 
-  SafeRoad is designed as a platform for mainentance and further development of
-  road infrastructure and assist to promote safer driving and potentially
-  reduce congestion on roads already being strained and deemed unsafe. The
-  services aims to allow the user to view a heatmap of areas in which road
-  accidents occur and the prominence and severity of the accident. Furthermore
-  the service aims to allow users to filter information using road conditions
-  (wet, clear, foggy, etc.) and view data regarding crash occurences relating
-  to the time of day aswell as trends exhibited over the years.
-  It is the [hax0r](https://github.com/hax0rs) team submission for
+  SafeRoad is designed as a platform for finding high risk road areas. It can be used in planning mainentance and further development of road infrastructure such as signage, traffic flow management and road resurfacing. It can also assist in planning new emergnecy service home-base locations. For the public, the service highlights roads of high risk and could act to reduce road use in high-use and high-risk areas.
+
+  SafeRoad aims to allow the user to view a heatmap of areas in which road accidents occur and the prominence and severity of the accident. Furthermore the service aims to allow users to filter information using road conditions (wet, clear, foggy, etc.) and view data regarding crash occurences relating to the time of day aswell as trends exhibited over the years. It is the [UQ Hax0rs](https://github.com/hax0rs) team submission for
   GovHack BNE 2015.
 
 ##  The Latest Version
