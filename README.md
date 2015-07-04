@@ -16,12 +16,13 @@
 ### Development Roadmap
 
   - ~~Initialise Project and README~~
-  - Select Data Sources
-  - Develop site design
-  - Select major libraries and plugins
-  - Develop frontend of service
-  - Develop handler code and functions
-  - Develop backend API
+  - ~~Select Data Sources~~
+  - ~~Develop site design~~
+  - ~~Select major libraries and plugins~~
+  - ~~Develop base frontend of service~~
+  - ~~Develop handler code and functions~~
+  - Develop base backend API
+  - Deploy
 
 ## Technical Information
 
