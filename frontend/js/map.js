@@ -37,12 +37,12 @@ function initialize(map_options) {
     map = new google.maps.Map(document.getElementById('map-canvas'),
                               map_options);
     google.maps.event.addListener(map, 'idle', function(ev) {
-        update_zoom(map)
+        update_zoom(map, update_heatmap);
     });
 }
 
-// update the heatmap data based on current zoom level
-function update_zoom() {
+// queries for new data based on current zoom level and updates heatmap
+function update_zoom(map, callback) {
     var bounds = map.getBounds().toUrlValue(7).split(",");
     var json_call = ("../api/sr_data/" +
                      "?lon1=" + bounds[1] +
@@ -50,16 +50,13 @@ function update_zoom() {
                      "&lon2=" + bounds[3] +
                      "&lat2=" + bounds[2]);
 
-    alert(json_call);
-
-    var data;
-    var json_data;
-
-    jQuery.getJSON('./js/crash_data.json', function(json_data) {
-        data = json_data["data"];
-        alert("worked");
+    $.getJSON('json/', function(d) {
+        callback(d["data"]);
     })
+}
 
+// update the heatmap data based on passed data
+function update_heatmap(data) {
     var heatmap_data = [];
 
     for (var i = 0; i < data.length; i++) {
@@ -70,14 +67,13 @@ function update_zoom() {
             location: pos,
             weight: data[i]["casualty_total"]
         };
-        heatmap_data.push(weightedLoc);
+        heatmap_data.push(pos);
     }
 
     var heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatmap_data,
-        dissipating: false,
+        dissipating: true,
+        radius: 15,
         map: map
     });
-    heatmap.set('radius', 0.0005);
-    heatmap.set('opacity', 0.2);
 }
