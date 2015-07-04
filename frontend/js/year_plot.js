@@ -18,87 +18,48 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 
-var API_PATH = "";
+var API_PATH = "http://127.0.0.1:8000/sr_data/year/";
 
-var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-
-
-
-
-// Get Data
-
-var test_data = {
-  "description": "[{str(year),int(casualties)}]",
-  "data": [
-    {
-      "year": 2001,
-      "fatality_count": 1
-    },
-    {
-      "year": 2003,
-      "fatality_count": 2
-    },
-    {
-      "year": 2004,
-      "fatality_count": 3
-      
-    },
-    {
-      "year": 2005,
-      "fatality_count": 4
-    },
-    {
-      "year": 2006,
-      "fatality_count": 5
-    },
-    {
-      "year": 2007,
-      "fatality_count": 6
-    }
-  ]
-};
 
 // Prepare Data
 
-function prepare_year_data (jsonData) {
-    var preparedData = {"labels" : [], 
+function prepare_year_data (json_data) {
+    var prepared_data = {"labels" : [],
                         "datasets" : [{
                             label: "My First dataset",
                             fillColor : "rgba(192,57,43,0.5)",
                             strokeColor : "rgba(192,57,43,0.8)",
-                            pointColor : "rgba(0,0,0,1)",
-                            pointStrokeColor : "#000",
-                            pointHighlightFill : "#fff",
-                            pointHighlightStroke : "rgba(220,220,220,1)",
+                            pointColor : "rgba(192,57,43,1)",
+                            pointStrokeColor : "rgba(192,57,43,1)",
+                            pointHighlightFill : "rgba(152,17,03,1)",
+                            pointHighlightStroke : "rgba(152,17,03,1)",
                             "data" : []
     }]};
 
-    var data = jsonData["data"];
+    var data = json_data["data"];
     for (var i = 0; i < data.length; i++) {
-        preparedData["labels"].push(data[i]["year"]);
-        preparedData["datasets"][0]["data"].push(data[i]["fatality_count"]);
+        prepared_data["labels"].push(data[i]["year"]);
+        prepared_data["datasets"][0]["data"].push(data[i]["fatality_count"]);
     }
 
-    console.log(preparedData);
-    return(preparedData);
+    // console.log(prepared_data);
+    return(prepared_data);
+}
+
+function get_year_data (path) {
+    $.getJSON(path, function( return_feed ) {
+            // console.log(return_feed);
+            var test1 = prepare_year_data(return_feed);
+                   var ctx = document.getElementById("year_canvas").getContext("2d");
+        window.myLine = new Chart(ctx).Line(test1, {
+            responsive: true
+        });
+
+    });
 }
 
 
-    window.onload = function(){
-
-
-var lineChartData = prepare_year_data(test_data);
-
-// Displaying of data.
-var ctx1 = document.getElementById("time_canvas").getContext("2d");
-    window.myBar = new Chart(ctx1).Bar(barChartData, {
-      responsive : true
-    });
-        var ctx = document.getElementById("year_canvas").getContext("2d");
-        window.myLine = new Chart(ctx).Line(lineChartData, {
-            responsive: true
-        });
-    };
+var lineChartData = get_year_data(API_PATH);
 
 
 

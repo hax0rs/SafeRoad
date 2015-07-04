@@ -17,8 +17,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-// Variables and Constants
-var API_PATH = "json/";
+// Variables and Constants 
+var API_PATH = "http://127.0.0.1:8000/sr_data/hour/";
 
 
 function prepare_time_data (json_time_data) {
@@ -35,7 +35,7 @@ function prepare_time_data (json_time_data) {
     var data = json_time_data["data"];
 
     for (var i = 0; i < data.length; i++) {
-        prepared_data["labels"].push(data[i]["time"]);
+        prepared_data["labels"].push(data[i]["hour"]);
         prepared_data["datasets"][0]["data"].push(data[i]["fatality_count"]);
     }
     return(prepared_data);
@@ -54,5 +54,3 @@ function get_time_data (path) {
 
 
 var barChartData = get_time_data(API_PATH);
-
-console.log(barChartData);
