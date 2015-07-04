@@ -40,11 +40,17 @@ def index(request):
     return HttpResponse("Error. Check args. Possible: lon1, lat1, lon2, lat2")
 
 def yearly(request):
-    data_value = Crash.objects.all().values('year').annotate(cas = Sum('count_casualty_total')).order_by('year')
+    fatal_data = Crash.objects.all().values('year').annotate(cas = Sum('count_casualty_fatality')).order_by('year')
+    total_data = Crash.objects.all().values('year').annotate(cas = Sum('count_casualty_total')).order_by('year')
     datas = {}
-    for items in data_value:
-        datas[items["year"]] = items["cas"]
-    return JsonResponse({ "description" : "[{str(year),int(casualties)}]", "data" :[{"year":x,"fatality_count":y} for x, y in datas.items()]})
+    for item in fatal_data:
+        datas[item["year"]] = datas.get(item["year"], [])
+        datas[item["year"]].append(item["cas"])
+    for item in total_data:
+        datas[item["year"]] = datas.get(item["year"], [])
+        datas[item["year"]].append(item["cas"])
+    print(datas)
+    return JsonResponse({ "description" : "[{str(year),int(fatality_count),int(total_casualty)}]", "data" :[{"year":x, "fatality_count":y[0], "total_casualty":y[1]} for x, y in datas.items()]})
 
 
 def hourly(request):
