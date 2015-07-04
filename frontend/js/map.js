@@ -55,7 +55,7 @@ function update_zoom() {
     var data;
     var json_data;
 
-    $.getJSON('../json_feed', function(json_data) {
+    jQuery.getJSON('./js/crash_data.json', function(json_data) {
         data = json_data["data"];
         alert("worked");
     })
