@@ -98,6 +98,8 @@ var map = new google.maps.Map(document.getElementById('map-canvas'),
 
 </script>
 
+    <script src="js/vendor/chartjs/chart.min.js"></script>
+
   </head>
   
   <body>
@@ -145,6 +147,8 @@ var map = new google.maps.Map(document.getElementById('map-canvas'),
       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <canvas id="time_canvas" height="450" width="600"></canvas>
+
     </section>
 
     <section>
@@ -156,6 +160,7 @@ var map = new google.maps.Map(document.getElementById('map-canvas'),
       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <canvas id="year_canvas" height="450" width="600"></canvas>
     </section>
 
     <section>
@@ -196,6 +201,10 @@ var map = new google.maps.Map(document.getElementById('map-canvas'),
 
 
         <script src="js/main.js"></script>
+
+<script src="js/time_plot.js"></script>
+<script src="js/year_plot.js"></script>
+
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
