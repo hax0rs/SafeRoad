@@ -1,3 +1,23 @@
+<!--
+{description}
+Copyright (C) 2015 UQ hax0rs
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -23,10 +43,12 @@
     <!-- Favicon -->
     <link rel="icon" href="favicon.png" type="image/x-icon" />
 
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=visualization"></script>
     <script type="text/javascript" src="js/map.js"></script>
+
+    <script src="js/vendor/chartjs/chart.min.js"></script>
 
   </head>
   
@@ -43,7 +65,7 @@
       </div>
       <div class="bottomBar">
         <div class="wrapper">         
-          <img src="img/icon.png" alt="SafeRoad Logo">
+          <img src="img/collision.svg" height="150px" alt="SafeRoad Logo">
           <h1>SafeRoad.info</h1>
           <p>A new way of seeing your city and maintaining fitness!
         </div>
@@ -75,6 +97,8 @@
       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <canvas id="time_canvas" height="200" width="600"></canvas>
+
     </section>
 
     <section>
@@ -86,18 +110,13 @@
       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <canvas id="year_canvas" height="250" width="600"></canvas>
     </section>
 
+    <!-- TODO: Implement Hotzones
     <section>
       <h2>Hotzones</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-    </section>
+    </section>-->
 
     <section>
       <h2>About/Contact</h2>
@@ -126,6 +145,10 @@
 
 
         <script src="js/main.js"></script>
+
+<script src="js/time_plot.js"></script>
+<script src="js/year_plot.js"></script>
+
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
