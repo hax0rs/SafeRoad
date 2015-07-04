@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -51,4 +52,6 @@ docs/_build/
 
 # the datafiles
 db.sqlite3
+=======
+>>>>>>> origin/frontend
 frontend/mongoose-free-5.6.exe
