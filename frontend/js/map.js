@@ -1,5 +1,8 @@
 var map, pointarray, heatmap;
 
+
+var API_PATH = "http://127.0.0.1:8000/sr_data/";
+
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(error_function, error_function);
 } 
@@ -44,7 +47,7 @@ function initialize(map_options) {
 // queries for new data based on current zoom level and updates heatmap
 function update_zoom(map, callback) {
     var bounds = map.getBounds().toUrlValue(7).split(",");
-    var json_call = ("http://127.0.0.1:8800/sr_data/" + // change this to django server URL
+    var json_call = (API_PATH + // change this to django server URL
                      "?lon1=" + bounds[1] +
                      "&lat1=" + bounds[0] +
                      "&lon2=" + bounds[3] +

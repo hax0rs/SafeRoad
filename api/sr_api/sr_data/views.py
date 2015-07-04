@@ -46,6 +46,14 @@ def yearly(request):
         datas[items["year"]] = items["cas"]
     return JsonResponse({ "description" : "[{str(year),int(casualties)}]", "data" :[{"year":x,"fatality_count":y} for x, y in datas.items()]})
 
+
+def hourly(request):
+    data_value = Crash.objects.all().values('hour').annotate(cas = Sum('count_casualty_total')).order_by('hour')
+    datas = {}
+    for items in data_value:
+        datas[items["hour"]] = items["cas"]
+    return JsonResponse({ "description" : "[{str(hour),int(casualties)}]", "data" :[{"hour":x,"fatality_count":y} for x, y in datas.items()]})
+
 def box_crashes(lon1, lat1, lon2, lat2, passthrough=None):
     flon1, flat1 = float(lon1), float(lat1)
     flon2, flat2 = float(lon2), float(lat2)
