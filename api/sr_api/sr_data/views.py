@@ -49,7 +49,6 @@ def yearly(request):
     for item in total_data:
         datas[item["year"]] = datas.get(item["year"], [])
         datas[item["year"]].append(item["cas"])
-    print(datas)
     return JsonResponse({ "description" : "[{str(year),int(fatality_count),int(total_casualty)}]", "data" :[{"year":x, "fatality_count":y[0], "total_casualty":y[1]} for x, y in datas.items()]})
 
 
