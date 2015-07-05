@@ -1,5 +1,40 @@
 var map, pointarray, heatmap;
+var year = 2013;
+var month = -1;
+var hour = -1;
 
+var month_to_str = {
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December"
+}
+
+function checkbox_onclick_function(id, value) {
+    var desc = id.split("_");
+
+    if ((desc[1] == "slider" || desc[1] == "input")) {
+        // input via slider or text
+        window[desc[0]] = window[desc[0]] != -1 ? value : -1;
+        document.getElementById(desc[0] + "_" + (desc[1]=="input" ? "slider" : "input")).value =  value;
+    } else if (desc[1] == "check") {
+        // input via checkbox
+        if (value == false) {
+            window[desc[0]] = document.getElementById(desc[0] + "_slider").value;
+        } else {
+            window[desc[0]] = -1;
+        }
+    }
+    update_zoom();
+}
 
 var MAP_API_PATH = "http://127.0.0.1:8000/sr_data/";
 
@@ -29,7 +64,6 @@ function error_function() {
     var map_options = {
         "center": { "lat":latitude, "lng":longitude},
         "zoom" : 13
-
     }
     initialize(map_options);
 }
@@ -62,7 +96,9 @@ function update_zoom() {
                      "&lat1=" + bounds[0] +
                      "&lon2=" + bounds[3] +
                      "&lat2=" + bounds[2] +
-                     "&year=" + "2013");
+                     (year != -1 ? ("&year=" + String(year)) : "") +
+                     (month != -1 ? ("&month=" + month_to_str[month]) : "") +
+                     (hour != -1 ? ("&hour=" + String(hour)) : ""));
 
     console.log(json_call);
 
@@ -73,7 +109,7 @@ function update_zoom() {
 
 function get_heatmap_data(data) {
     var heatmap_data = [];
-
+    console.log(data.length);
     for (var i = 0; i < data.length; i++) {
         var pos = new google.maps.LatLng(data[i]["lat"],
                                          data[i]["long"]);

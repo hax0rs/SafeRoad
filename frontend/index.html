@@ -78,9 +78,34 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     <div class="mainContent">
 
     <section>
+      <h2>Filters</h2>
+      <p>
+        Below are filters which you can use to filter data.
+      </p>
+
+      <table style="width:100%">
+        <tr>
+            <td align="center"><strong>Year</strong></td>
+            <td align="center"><strong>Month</strong></td>
+            <td align="center"><strong>Hour</strong></td>
+        </tr>
+        <tr>
+          <td align="center"><input id="year_slider" value="2013" type="range" min="2001" max="2014" step="1" oninput="checkbox_onclick_function(this.id, this.value)"/></td>
+          <td align="center"><input id="month_slider" value="1" type="range" min="1" max="12" step="1" oninput="checkbox_onclick_function(this.id, this.value)"/></td>
+          <td align="center"><input id="hour_slider" value="0" type="range" min="0" max="23" step="1" oninput="checkbox_onclick_function(this.id, this.value)"/></td>
+        </tr>
+        <tr>
+          <td align="center"><input id="year_input" value="2013" type="number" min="2001" max="2014" step="all" oninput="checkbox_onclick_function(this.id, this.value)"/> all <input id="year_check" type="checkbox" onclick="checkbox_onclick_function(this.id, this.checked)"/></td>
+          <td align="center"><input id="month_input" value="1" type="number" min="1" max="12" step="1" oninput="checkbox_onclick_function(this.id, this.value)"/> all <input id="month_check" type="checkbox" checked="true" onclick="checkbox_onclick_function(this.id, this.checked)"/></td>
+          <td align="center"><input id="hour_input" value="0" type="number" min="0" max="23" 1="dsliderstep" oninput="checkbox_onclick_function(this.id, this.value)"/> all <input id="hour_check" type="checkbox" checked="true" onclick="checkbox_onclick_function(this.id, this.checked)"/></td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
       <h2>Roads</h2>
       <p>
-      View the gyms in your local area. <italic>Note: Press on a marker for more information.</italic>
+      View the gyms in your local area. <i>Note: Press on a marker for more information.</i>
       </p>
 
       <div id="mapCanvasHolder">
@@ -98,7 +123,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
       <canvas id="time_canvas" height="200" width="600"></canvas>
-
     </section>
 
     <section>
