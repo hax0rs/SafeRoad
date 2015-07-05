@@ -39,30 +39,39 @@ function initialize(map_options) {
     //Testing
     map = new google.maps.Map(document.getElementById('map-canvas'),
                               map_options);
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: get_heatmap_data({}),
+        dissipating: true,
+        radius: 5,
+        opacity: 0.5,
+        map: map
+    });
+
     google.maps.event.addListener(map, 'idle', function(ev) {
-        update_zoom(map, update_heatmap);
+        update_zoom();
     });
 }
 
 // queries for new data based on current zoom level and updates heatmap
-function update_zoom(map, callback) {
+function update_zoom() {
     var bounds = map.getBounds().toUrlValue(7).split(",");
 
     var json_call = (MAP_API_PATH +
                      "?lon1=" + bounds[1] +
                      "&lat1=" + bounds[0] +
                      "&lon2=" + bounds[3] +
-                     "&lat2=" + bounds[2]);
+                     "&lat2=" + bounds[2] +
+                     "&year=" + "2013");
 
     console.log(json_call);
 
     $.getJSON(json_call, function(d) {
-        callback(d["data"]);
+        heatmap.set('data', get_heatmap_data(d["data"]));
     })
 }
 
-// update the heatmap data based on passed data
-function update_heatmap(data) {
+function get_heatmap_data(data) {
     var heatmap_data = [];
 
     for (var i = 0; i < data.length; i++) {
@@ -73,13 +82,8 @@ function update_heatmap(data) {
             location: pos,
             weight: data[i]["casualty_total"]
         };
-        heatmap_data.push(pos);
+        heatmap_data.push(weightedLoc);
     }
 
-    var heatmap = new google.maps.visualization.HeatmapLayer({
-        data: heatmap_data,
-        dissipating: true,
-        radius: 15,
-        map: map
-    });
+    return heatmap_data;
 }
