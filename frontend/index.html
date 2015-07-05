@@ -67,7 +67,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <div class="wrapper">         
           <img src="img/collision.svg" height="150px" alt="SafeRoad Logo">
           <h1>SafeRoad.info</h1>
-          <p>A new way of seeing your city and maintaining fitness!
+          <p>A visualisation tool for Queensland Government road traffic accident data </p>
+          <p>GovHack2015BNE</p>
         </div>
       </div>
     </header>
@@ -78,9 +79,20 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     <div class="mainContent">
 
     <section>
+      <h2>Road Map</h2>
+      <p>
+      The heatmap below shows crash data geographically. The colour weightings are based on the total casualties involved in the crash.
+      </p>
+
+      <div id="mapCanvasHolder">
+      <div id="map-canvas"></div>
+      </div>
+    </section>
+
+    <section>
       <h2>Filters</h2>
       <p>
-        Below are filters which you can use to filter data.
+        Below are time filters which you can use to filter the above map. <i>Filters based on severity, speed and crash type coming soon!</i>
       </p>
 
       <table style="width:100%">
@@ -103,36 +115,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     </section>
 
     <section>
-      <h2>Roads</h2>
-      <p>
-      View the gyms in your local area. <i>Note: Press on a marker for more information.</i>
-      </p>
-
-      <div id="mapCanvasHolder">
-      <div id="map-canvas"></div>
-      </div>
-    </section>
-
-    <section>
       <h2>Time</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <p>The graph below shows total casualties since records began with respect to hour in the day.
       </p>
       <canvas id="time_canvas" height="200" width="600"></canvas>
     </section>
 
     <section>
       <h2>Years</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <p>The graph below shows total casualties since records began with respect to the year of the crash. <i>Note that 2014 data is incomplete and only goes up to the month of March.</i>
       </p>
       <canvas id="year_canvas" height="250" width="600"></canvas>
     </section>
@@ -143,13 +134,30 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     </section>-->
 
     <section>
-      <h2>About/Contact</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <h2>About</h2>
+      <p>
+        SafeRoad is designed as a platform for finding high risk road areas. It
+        can be used in planning mainentance and further development of road
+        infrastructure such as signage, traffic flow management and road
+        resurfacing. It can also assist in planning new emergnecy service home-
+        base locations. For the public, the service highlights roads of high
+        risk and could act to reduce road use in high-use and high-risk areas.
+      </p>
+      <p>
+        SafeRoad aims to allow the user to view a heatmap of areas in which road
+        accidents occur and the prominence and severity of the accident. Furthermore the
+        service aims to allow users to filter information using road conditions (wet,
+        clear, foggy, etc.) and view data regarding crash occurences relating to the
+        time of day aswell as trends exhibited over the years. It is the UQ Hax0rs team
+        submission for GovHack BNE 2015.
+      </p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>
+        For development suggestions or access to source code please contact:
+        <a href="mailto:joshua.riddell11@gmail.com" target="_top">UQ Hax0rs</a>
       </p>
     </section>
 
