@@ -53,11 +53,16 @@ def yearly(request):
 
 
 def hourly(request):
-    data_value = Crash.objects.all().values('hour').annotate(cas = Sum('count_casualty_total')).order_by('hour')
+    fatal_data = Crash.objects.all().values('hour').annotate(cas = Sum('count_casualty_fatality')).order_by('hour')
+    total_data = Crash.objects.all().values('hour').annotate(cas = Sum('count_casualty_total')).order_by('hour')
     datas = {}
-    for items in data_value:
-        datas[items["hour"]] = items["cas"]
-    return JsonResponse({ "description" : "[{str(hour),int(casualties)}]", "data" :[{"hour":x,"fatality_count":y} for x, y in datas.items()]})
+    for item in fatal_data:
+        datas[item["hour"]] = datas.get(item["hour"], [])
+        datas[item["hour"]].append(item["cas"])
+    for item in total_data:
+        datas[item["hour"]] = datas.get(item["hour"], [])
+        datas[item["hour"]].append(item["cas"])
+    return JsonResponse({ "description" : "[{str(hour),int(fatality_count),int(total_casualty)}]", "data" :[{"hour":x, "fatality_count":y[0], "total_casualty":y[1]} for x, y in datas.items()]})
 
 def box_crashes(lon1, lat1, lon2, lat2, passthrough=None):
     flon1, flat1 = float(lon1), float(lat1)
