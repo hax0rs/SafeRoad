@@ -77,7 +77,7 @@ function initialize(map_options) {
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: get_heatmap_data({}),
         dissipating: true,
-        radius: 5,
+        radius: 10,
         opacity: 0.5,
         map: map
     });
@@ -109,7 +109,6 @@ function update_zoom() {
 
 function get_heatmap_data(data) {
     var heatmap_data = [];
-    console.log(data.length);
     for (var i = 0; i < data.length; i++) {
         var pos = new google.maps.LatLng(data[i]["lat"],
                                          data[i]["long"]);
