@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: map.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: map.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+* @fileoverview Swags shit up.
+* @version 1.0
+* @license GNU GPL V2.0
+* @copyright 2015 UQ hax0rs
+*/
+
+var map, pointarray, heatmap;
+var year = 2013;
+var month = -1;
+var hour = -1;
+
+
+
+
+/**
+* @description Represents a book.
+* @param {string} id - 
+* @param {string} value -
+* @returns {None} 
+* @todo do this
+* @todo do that
+* @example
+    * globalNS.method(5, 15);
+    * // returns 3
+* @requires GoogleMapsAPIV3 
+*/
+function checkbox_onclick_function(id, value) {
+    var desc = id.split("_");
+
+    if ((desc[1] == "slider" || desc[1] == "input")) {
+        // input via slider or text
+        window[desc[0]] = window[desc[0]] != -1 ? value : -1;
+        document.getElementById(desc[0] + "_" + (desc[1]=="input" ? "slider" : "input")).value =  value;
+    } else if (desc[1] == "check") {
+        // input via checkbox
+        if (value === false) {
+            window[desc[0]] = document.getElementById(desc[0] + "_slider").value;
+        } else {
+            window[desc[0]] = -1;
+        }
+    }
+    update_zoom();
+}
+
+
+
+//Sets the map to center on the user
+function success_function(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    var map_options = {
+        "center": { "lat":latitude, "lng":longitude},
+        "zoom" : 13
+
+    };
+    initialize(map_options);
+}
+
+// If Geolocation is unavailable sets the map to center on Gold Coast
+function error_function() {
+    var latitude = -27.470880;
+    var longitude = 153.023082;
+    var map_options = {
+        "center": { "lat":latitude, "lng":longitude},
+        "zoom" : 13
+    };
+    initialize(map_options);
+}
+
+// initialise map panel
+function initialize(map_options) {
+    //Testing
+    map = new google.maps.Map(document.getElementById('map-canvas'),
+                              map_options);
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: get_heatmap_data({}),
+        dissipating: true,
+        radius: 5,
+        opacity: 0.5,
+        map: map
+    });
+
+    google.maps.event.addListener(map, 'idle', function(ev) {
+        update_zoom();
+    });
+}
+
+// queries for new data based on current zoom level and updates heatmap
+function update_zoom() {
+    var bounds = map.getBounds().toUrlValue(7).split(",");
+
+    var json_call = (MAP_API_PATH +
+                     "?lon1=" + bounds[1] +
+                     "&amp;lat1=" + bounds[0] +
+                     "&amp;lon2=" + bounds[3] +
+                     "&amp;lat2=" + bounds[2] +
+                     (year != -1 ? ("&amp;year=" + String(year)) : "") +
+                     (month != -1 ? ("&amp;month=" + MONTH_TO_STR[month]) : "") +
+                     (hour != -1 ? ("&amp;hour=" + String(hour)) : ""));
+
+
+    $.getJSON(json_call, function(d) {
+        heatmap.set('data', get_heatmap_data(d["data"]));
+    });
+}
+
+function get_heatmap_data(data) {
+    var heatmap_data = [];
+    console.log(data.length);
+    for (var i = 0; i &lt; data.length; i++) {
+        var pos = new google.maps.LatLng(data[i]["lat"],
+                                         data[i]["long"]);
+
+        var weightedLoc = {
+            location: pos,
+            weight: data[i]["casualty_total"]
+        };
+        heatmap_data.push(weightedLoc);
+    }
+
+    return heatmap_data;
+}
+
+
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(error_function, error_function);
+} 
+else {
+    window.alert('It seems like Geolocation, which is required for this page, is not enabled in your browser.');
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkbox_onclick_function">checkbox_onclick_function</a></li><li><a href="global.html#get_year_data">get_year_data</a></li><li><a href="global.html#HOUR_API_PATH">HOUR_API_PATH</a></li><li><a href="global.html#MAP_API_PATH">MAP_API_PATH</a></li><li><a href="global.html#MONTH_TO_STR">MONTH_TO_STR</a></li><li><a href="global.html#prepare_time_data">prepare_time_data</a></li><li><a href="global.html#prepare_year_data">prepare_year_data</a></li><li><a href="global.html#YEAR_API_PATH">YEAR_API_PATH</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Jul 07 2015 22:05:17 GMT+1000 (AEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
