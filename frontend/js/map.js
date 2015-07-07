@@ -36,7 +36,7 @@ function checkbox_onclick_function(id, value) {
     update_zoom();
 }
 
-var MAP_API_PATH = "http://127.0.0.1:8000/sr_data/";
+var MAP_API_PATH = "http://101.183.66.15:8000/sr_data/";
 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(error_function, error_function);

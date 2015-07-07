@@ -18,7 +18,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 
-var YEAR_API_PATH = "http://127.0.0.1:8000/sr_data/year/";
+var YEAR_API_PATH = "http://101.183.66.15:8000/sr_data/year/";
 
 
 // Prepare Data

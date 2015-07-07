@@ -18,7 +18,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 // Variables and Constants 
-var HOUR_API_PATH = "http://127.0.0.1:8000/sr_data/hour/";
+var HOUR_API_PATH = "http://101.183.66.15:8000/sr_data/hour/";
 
 
 function prepare_time_data (json_time_data) {
