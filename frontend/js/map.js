@@ -1,8 +1,8 @@
 /**
- * @fileoverview Handles display of Google Maps widget
- * @version 1.0
- * @license GNU GPL V2.0
- */
+* @fileoverview Handles display of Google Maps widget
+* @version 1.0
+* @license GNU GPL V2.0
+*/
 
 /**
  * @description Google Maps API main object.
@@ -16,32 +16,15 @@ var MAP;
  */
 var HEATMAP;
 
-/**
- * @description Dictionary to convert from month number to 
- * 
- */
-var MONTH_TO_STR = {
-    1: "January",
-    2: "February",
-    3: "March",
-    4: "April",
-    5: "May",
-    6: "June",
-    7: "July",
-    8: "August",
-    9: "September",
-    10: "October",
-    11: "November",
-    12: "December"
-};
+
 
 var year = 2013;
 var month = -1;
 var hour = -1;
 
 /**
- * @description Checkbox click
- */
+* @description Checkbox click
+*/
 function checkbox_onclick_function(id, value) {
     var desc = id.split("_");
 
@@ -60,14 +43,7 @@ function checkbox_onclick_function(id, value) {
     update_zoom();
 }
 
-var MAP_API_PATH = "http://127.0.0.1:8000/sr_data/";
 
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(error_function, error_function);
-} 
-else {
-    window.alert('It seems like Geolocation, which is required for this page, is not enabled in your browser.');
-}
 
 /**
  * @description Sets the map to center on the user.
@@ -84,8 +60,8 @@ function success_function(position) {
 }
 
 /**
- * @description If Geolocation is unavailable sets the map to center on Gold Coast.
- */
+* @description If Geolocation is unavailable sets the map to center on Gold Coast.
+*/
 function error_function() {
     var latitude = -27.470880;
     var longitude = 153.023082;
@@ -97,8 +73,8 @@ function error_function() {
 }
 
 /**
- * @description Initialise map panel.
- */
+* @description Initialise map panel.
+*/
 function initialize(map_options) {
     //Testing
     MAP = new google.maps.Map(document.getElementById('map-canvas'),
@@ -118,8 +94,8 @@ function initialize(map_options) {
 }
 
 /**
- * @description Queries for new data based on current zoom level and updates heatmap.
- */
+* @description Queries for new data based on current zoom level and updates heatmap.
+*/
 function update_zoom() {
     var bounds = MAP.getBounds().toUrlValue(7).split(",");
 
@@ -132,7 +108,6 @@ function update_zoom() {
                      (month != -1 ? ("&month=" + MONTH_TO_STR[month]) : "") +
                      (hour != -1 ? ("&hour=" + String(hour)) : ""));
 
-    console.log(json_call);
 
     $.getJSON(json_call, function(d) {
         HEATMAP.set('data', get_heatmap_data(d["data"]));
@@ -141,8 +116,8 @@ function update_zoom() {
 
 
 /**
- * 
- */
+* 
+*/
 function get_heatmap_data(data) {
     var heatmap_data = [];
     console.log(data.length);
@@ -158,4 +133,13 @@ function get_heatmap_data(data) {
     }
 
     return heatmap_data;
+}
+
+
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(error_function, error_function);
+} 
+else {
+    window.alert('It seems like Geolocation, which is required for this page, is not enabled in your browser.');
 }
