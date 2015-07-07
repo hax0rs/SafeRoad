@@ -1,9 +1,15 @@
+/**
+* @fileoverview Swags shit up.
+* @version 1.0
+* @license GNU GPL V2.0
+*/
+
 var map, pointarray, heatmap;
 var year = 2013;
 var month = -1;
 var hour = -1;
 
-var month_to_str = {
+var MONTH_TO_STR = {
     1: "January",
     2: "February",
     3: "March",
@@ -16,8 +22,22 @@ var month_to_str = {
     10: "October",
     11: "November",
     12: "December"
-}
+};
 
+
+/**
+* @description Represents a book.
+* @since 1/1/1
+* @param {string} id - 
+* @param {string} value -
+* @returns {string} aasdfasf is what it returns
+* @todo do this
+* @todo do that
+* @example
+    * globalNS.method(5, 15);
+    * // returns 3
+* @requires GoogleMapsAPIV3 
+*/
 function checkbox_onclick_function(id, value) {
     var desc = id.split("_");
 
@@ -27,7 +47,7 @@ function checkbox_onclick_function(id, value) {
         document.getElementById(desc[0] + "_" + (desc[1]=="input" ? "slider" : "input")).value =  value;
     } else if (desc[1] == "check") {
         // input via checkbox
-        if (value == false) {
+        if (value === false) {
             window[desc[0]] = document.getElementById(desc[0] + "_slider").value;
         } else {
             window[desc[0]] = -1;
@@ -53,7 +73,7 @@ function success_function(position) {
         "center": { "lat":latitude, "lng":longitude},
         "zoom" : 13
 
-    }
+    };
     initialize(map_options);
 }
 
@@ -64,7 +84,7 @@ function error_function() {
     var map_options = {
         "center": { "lat":latitude, "lng":longitude},
         "zoom" : 13
-    }
+    };
     initialize(map_options);
 }
 
@@ -97,14 +117,14 @@ function update_zoom() {
                      "&lon2=" + bounds[3] +
                      "&lat2=" + bounds[2] +
                      (year != -1 ? ("&year=" + String(year)) : "") +
-                     (month != -1 ? ("&month=" + month_to_str[month]) : "") +
+                     (month != -1 ? ("&month=" + MONTH_TO_STR[month]) : "") +
                      (hour != -1 ? ("&hour=" + String(hour)) : ""));
 
     console.log(json_call);
 
     $.getJSON(json_call, function(d) {
         heatmap.set('data', get_heatmap_data(d["data"]));
-    })
+    });
 }
 
 function get_heatmap_data(data) {
