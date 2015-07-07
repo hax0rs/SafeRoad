@@ -1,14 +1,25 @@
 /**
-* @fileoverview Swags shit up.
-* @version 1.0
-* @license GNU GPL V2.0
-*/
+ * @fileoverview Handles display of Google Maps widget
+ * @version 1.0
+ * @license GNU GPL V2.0
+ */
 
-var map, pointarray, heatmap;
-var year = 2013;
-var month = -1;
-var hour = -1;
+/**
+ * @description Google Maps API main object.
+ * @global
+ */
+var MAP;
 
+/**
+ * @description Stores point data for the heatmap.
+ * @global
+ */
+var HEATMAP;
+
+/**
+ * @description Dictionary to convert from month number to 
+ * 
+ */
 var MONTH_TO_STR = {
     1: "January",
     2: "February",
@@ -24,20 +35,13 @@ var MONTH_TO_STR = {
     12: "December"
 };
 
+var year = 2013;
+var month = -1;
+var hour = -1;
 
 /**
-* @description Represents a book.
-* @since 1/1/1
-* @param {string} id - 
-* @param {string} value -
-* @returns {string} aasdfasf is what it returns
-* @todo do this
-* @todo do that
-* @example
-    * globalNS.method(5, 15);
-    * // returns 3
-* @requires GoogleMapsAPIV3 
-*/
+ * @description Checkbox click
+ */
 function checkbox_onclick_function(id, value) {
     var desc = id.split("_");
 
@@ -65,7 +69,9 @@ else {
     window.alert('It seems like Geolocation, which is required for this page, is not enabled in your browser.');
 }
 
-//Sets the map to center on the user
+/**
+ * @description Sets the map to center on the user.
+ */
 function success_function(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
@@ -77,7 +83,9 @@ function success_function(position) {
     initialize(map_options);
 }
 
-// If Geolocation is unavailable sets the map to center on Gold Coast
+/**
+ * @description If Geolocation is unavailable sets the map to center on Gold Coast.
+ */
 function error_function() {
     var latitude = -27.470880;
     var longitude = 153.023082;
@@ -88,28 +96,32 @@ function error_function() {
     initialize(map_options);
 }
 
-// initialise map panel
+/**
+ * @description Initialise map panel.
+ */
 function initialize(map_options) {
     //Testing
-    map = new google.maps.Map(document.getElementById('map-canvas'),
+    MAP = new google.maps.Map(document.getElementById('map-canvas'),
                               map_options);
 
-    heatmap = new google.maps.visualization.HeatmapLayer({
+    HEATMAP = new google.maps.visualization.HeatmapLayer({
         data: get_heatmap_data({}),
         dissipating: true,
         radius: 5,
         opacity: 0.5,
-        map: map
+        map: MAP
     });
 
-    google.maps.event.addListener(map, 'idle', function(ev) {
+    google.maps.event.addListener(MAP, 'idle', function(ev) {
         update_zoom();
     });
 }
 
-// queries for new data based on current zoom level and updates heatmap
+/**
+ * @description Queries for new data based on current zoom level and updates heatmap.
+ */
 function update_zoom() {
-    var bounds = map.getBounds().toUrlValue(7).split(",");
+    var bounds = MAP.getBounds().toUrlValue(7).split(",");
 
     var json_call = (MAP_API_PATH +
                      "?lon1=" + bounds[1] +
@@ -123,10 +135,14 @@ function update_zoom() {
     console.log(json_call);
 
     $.getJSON(json_call, function(d) {
-        heatmap.set('data', get_heatmap_data(d["data"]));
+        HEATMAP.set('data', get_heatmap_data(d["data"]));
     });
 }
 
+
+/**
+ * 
+ */
 function get_heatmap_data(data) {
     var heatmap_data = [];
     console.log(data.length);
