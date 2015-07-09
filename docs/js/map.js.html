@@ -27,31 +27,36 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
-* @fileoverview Swags shit up.
+* @fileoverview Handles display of Google Maps widget
 * @version 1.0
 * @license GNU GPL V2.0
 * @copyright 2015 UQ hax0rs
 */
 
-var map, pointarray, heatmap;
+/**
+ * @description Google Maps API main object.
+ * @global
+ */
+var MAP;
+
+/**
+ * @description Stores point data for the heatmap.
+ * @global
+ */
+var HEATMAP;
+
+
+
 var year = 2013;
 var month = -1;
 var hour = -1;
 
-
-
-
 /**
-* @description Represents a book.
-* @param {string} id - 
-* @param {string} value -
-* @returns {None} 
-* @todo do this
-* @todo do that
-* @example
-    * globalNS.method(5, 15);
-    * // returns 3
-* @requires GoogleMapsAPIV3 
+* @description Checkbox click
+* @param {string} id - Checkbox ID
+* @param {string} value - value of checkbox/field
+* @returns {None}
+* @fires update_zoom()
 */
 function checkbox_onclick_function(id, value) {
     var desc = id.split("_");
@@ -59,11 +64,13 @@ function checkbox_onclick_function(id, value) {
     if ((desc[1] == "slider" || desc[1] == "input")) {
         // input via slider or text
         window[desc[0]] = window[desc[0]] != -1 ? value : -1;
-        document.getElementById(desc[0] + "_" + (desc[1]=="input" ? "slider" : "input")).value =  value;
+        document.getElementById(desc[0] + "_" +
+            (desc[1]=="input" ? "slider" : "input")).value =  value;
     } else if (desc[1] == "check") {
         // input via checkbox
         if (value === false) {
-            window[desc[0]] = document.getElementById(desc[0] + "_slider").value;
+            window[desc[0]] =
+                document.getElementById(desc[0] + "_slider").value;
         } else {
             window[desc[0]] = -1;
         }
@@ -73,7 +80,11 @@ function checkbox_onclick_function(id, value) {
 
 
 
-//Sets the map to center on the user
+/**
+* @description Sets the map to center on the user.
+* @param {object} position - HTML5 returned Geoposition object.
+* @fires initialize()
+*/
 function success_function(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
@@ -85,7 +96,11 @@ function success_function(position) {
     initialize(map_options);
 }
 
-// If Geolocation is unavailable sets the map to center on Gold Coast
+/**
+* @description If Geolocation is unavailable sets
+   the map to center on Brisbane.
+* @fires initialize()
+*/
 function error_function() {
     var latitude = -27.470880;
     var longitude = 153.023082;
@@ -96,28 +111,35 @@ function error_function() {
     initialize(map_options);
 }
 
-// initialise map panel
+/**
+* @description Initialise map panel.
+* @param {object} map_options - Map display options.
+* @fires update_zoom()
+*/
 function initialize(map_options) {
     //Testing
-    map = new google.maps.Map(document.getElementById('map-canvas'),
+    MAP = new google.maps.Map(document.getElementById('map-canvas'),
                               map_options);
 
-    heatmap = new google.maps.visualization.HeatmapLayer({
+    HEATMAP = new google.maps.visualization.HeatmapLayer({
         data: get_heatmap_data({}),
         dissipating: true,
         radius: 5,
         opacity: 0.5,
-        map: map
+        map: MAP
     });
 
-    google.maps.event.addListener(map, 'idle', function(ev) {
+    google.maps.event.addListener(MAP, 'idle', function(ev) {
         update_zoom();
     });
 }
 
-// queries for new data based on current zoom level and updates heatmap
+/**
+* @description Queries for new data based on current zoom 
+               level and updates heatmap.
+*/
 function update_zoom() {
-    var bounds = map.getBounds().toUrlValue(7).split(",");
+    var bounds = MAP.getBounds().toUrlValue(7).split(",");
 
     var json_call = (MAP_API_PATH +
                      "?lon1=" + bounds[1] +
@@ -130,13 +152,19 @@ function update_zoom() {
 
 
     $.getJSON(json_call, function(d) {
-        heatmap.set('data', get_heatmap_data(d["data"]));
+        HEATMAP.set('data', get_heatmap_data(d["data"]));
     });
 }
 
+
+/**
+* @description Prepares JSON feed data for plotting.
+* @param {string} data - JSON feed of data.
+* @returns {array} Holds an array of point objects with location coordinates
+                   and point weighting
+*/
 function get_heatmap_data(data) {
     var heatmap_data = [];
-    console.log(data.length);
     for (var i = 0; i &lt; data.length; i++) {
         var pos = new google.maps.LatLng(data[i]["lat"],
                                          data[i]["long"]);
@@ -147,17 +175,18 @@ function get_heatmap_data(data) {
         };
         heatmap_data.push(weightedLoc);
     }
-
     return heatmap_data;
 }
 
 
 
 if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(error_function, error_function);
-} 
+    navigator.geolocation.getCurrentPosition(success_function, error_function);
+}
 else {
-    window.alert('It seems like Geolocation, which is required for this page, is not enabled in your browser.');
+    /*jshint multistr: true */
+    window.alert('It seems like Geolocation, which is required for this page, \
+        is not enabled in your browser.');
 }</code></pre>
         </article>
     </section>
@@ -168,13 +197,13 @@ else {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkbox_onclick_function">checkbox_onclick_function</a></li><li><a href="global.html#get_year_data">get_year_data</a></li><li><a href="global.html#HOUR_API_PATH">HOUR_API_PATH</a></li><li><a href="global.html#MAP_API_PATH">MAP_API_PATH</a></li><li><a href="global.html#MONTH_TO_STR">MONTH_TO_STR</a></li><li><a href="global.html#prepare_time_data">prepare_time_data</a></li><li><a href="global.html#prepare_year_data">prepare_year_data</a></li><li><a href="global.html#YEAR_API_PATH">YEAR_API_PATH</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkbox_onclick_function">checkbox_onclick_function</a></li><li><a href="global.html#error_function">error_function</a></li><li><a href="global.html#get_heatmap_data">get_heatmap_data</a></li><li><a href="global.html#get_time_data">get_time_data</a></li><li><a href="global.html#get_year_data">get_year_data</a></li><li><a href="global.html#HEATMAP">HEATMAP</a></li><li><a href="global.html#HOUR_API_PATH">HOUR_API_PATH</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#MAP">MAP</a></li><li><a href="global.html#MAP_API_PATH">MAP_API_PATH</a></li><li><a href="global.html#MONTH_TO_STR">MONTH_TO_STR</a></li><li><a href="global.html#prepare_time_data">prepare_time_data</a></li><li><a href="global.html#prepare_year_data">prepare_year_data</a></li><li><a href="global.html#success_function">success_function</a></li><li><a href="global.html#update_zoom">update_zoom</a></li><li><a href="global.html#YEAR_API_PATH">YEAR_API_PATH</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Jul 07 2015 22:05:17 GMT+1000 (AEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Thu Jul 09 2015 22:34:17 GMT+1000 (AEST)
 </footer>
 
 <script> prettyPrint(); </script>
