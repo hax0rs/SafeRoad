@@ -6,7 +6,6 @@
 */
 
 
-
 /**
 * @description Prepares year JSON feed from the server in JSChart format.
 * @param {string} json_data - JSON feed from the server

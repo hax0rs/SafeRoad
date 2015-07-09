@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -48,7 +45,8 @@
         <div class="wrapper">         
           <img src="img/collision.svg" height="150px" alt="SafeRoad Logo">
           <h1>SafeRoad.info</h1>
-          <p>Gain awareness of risky roads and likely casualties.</p>
+          <p>A visualisation tool for Queensland Government road traffic accident data </p>
+          <p>GovHack2015BNE</p>
         </div>
       </div>
     </header>
@@ -59,9 +57,20 @@
     <div class="mainContent">
 
     <section>
+      <h2>Road Map</h2>
+      <p>
+      The heatmap below shows crash data geographically. The colour weightings are based on the total casualties involved in the crash.
+      </p>
+
+      <div id="mapCanvasHolder">
+      <div id="map-canvas"></div>
+      </div>
+    </section>
+
+    <section>
       <h2>Filters</h2>
       <p>
-        Below are filters which you can use to filter data.
+        Below are time filters which you can use to filter the above map. <i>Filters based on severity, speed and crash type coming soon!</i>
       </p>
 
       <table style="width:100%">
@@ -84,30 +93,15 @@
     </section>
 
     <section>
-      <h2>Roads</h2>
-      <p>
-      The following map shows a heatmap of traffic incidents with red
-      representing increased accidents and green less while no color represents
-      no accidents in that area.
-      </p>
-
-      <div id="mapCanvasHolder">
-      <div id="map-canvas"></div>
-      </div>
-    </section>
-
-    <section>
       <h2>Time</h2>
-      <p>The following chart represents total casualties since 2001 for each
-          hour of the day.
+      <p>The graph below shows total casualties since records began with respect to hour in the day.
       </p>
       <canvas id="time_canvas" height="200" width="600"></canvas>
     </section>
 
     <section>
       <h2>Years</h2>
-      <p>The following chart represents total casualties for each year since
-          2001.
+      <p>The graph below shows total casualties since records began with respect to the year of the crash. <i>Note that 2014 data is incomplete and only goes up to the month of March.</i>
       </p>
       <canvas id="year_canvas" height="250" width="600"></canvas>
     </section>
@@ -118,9 +112,30 @@
     </section>-->
 
     <section>
-      <h2>About/Contact</h2>
-      <p>Feel free to submit an issue or query at:
-          <a href="https://github.com/hax0rs/SafeRoad/">https://github.com/hax0rs/SafeRoad/</a>
+      <h2>About</h2>
+      <p>
+        SafeRoad is designed as a platform for finding high risk road areas. It
+        can be used in planning mainentance and further development of road
+        infrastructure such as signage, traffic flow management and road
+        resurfacing. It can also assist in planning new emergnecy service home-
+        base locations. For the public, the service highlights roads of high
+        risk and could act to reduce road use in high-use and high-risk areas.
+      </p>
+      <p>
+        SafeRoad aims to allow the user to view a heatmap of areas in which road
+        accidents occur and the prominence and severity of the accident. Furthermore the
+        service aims to allow users to filter information using road conditions (wet,
+        clear, foggy, etc.) and view data regarding crash occurences relating to the
+        time of day aswell as trends exhibited over the years. It is the UQ Hax0rs team
+        submission for GovHack BNE 2015.
+      </p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>
+        For development suggestions or access to source code please contact:
+        <a href="mailto:gagalug13@gmail.com" target="_top">UQ Hax0rs</a>
       </p>
     </section>
 

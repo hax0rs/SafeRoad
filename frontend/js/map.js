@@ -51,7 +51,6 @@ function checkbox_onclick_function(id, value) {
 }
 
 
-
 /**
 * @description Sets the map to center on the user.
 * @param {object} position - HTML5 returned Geoposition object.
@@ -96,7 +95,7 @@ function initialize(map_options) {
     HEATMAP = new google.maps.visualization.HeatmapLayer({
         data: get_heatmap_data({}),
         dissipating: true,
-        radius: 5,
+        radius: 10,
         opacity: 0.5,
         map: MAP
     });
