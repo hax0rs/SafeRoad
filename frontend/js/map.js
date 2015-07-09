@@ -2,6 +2,7 @@
 * @fileoverview Handles display of Google Maps widget
 * @version 1.0
 * @license GNU GPL V2.0
+* @copyright 2015 UQ hax0rs
 */
 
 /**
@@ -24,6 +25,10 @@ var hour = -1;
 
 /**
 * @description Checkbox click
+* @param {string} id - Checkbox ID
+* @param {string} value - value of checkbox/field
+* @returns {None}
+* @fires update_zoom()
 */
 function checkbox_onclick_function(id, value) {
     var desc = id.split("_");
@@ -31,11 +36,13 @@ function checkbox_onclick_function(id, value) {
     if ((desc[1] == "slider" || desc[1] == "input")) {
         // input via slider or text
         window[desc[0]] = window[desc[0]] != -1 ? value : -1;
-        document.getElementById(desc[0] + "_" + (desc[1]=="input" ? "slider" : "input")).value =  value;
+        document.getElementById(desc[0] + "_" +
+            (desc[1]=="input" ? "slider" : "input")).value =  value;
     } else if (desc[1] == "check") {
         // input via checkbox
         if (value === false) {
-            window[desc[0]] = document.getElementById(desc[0] + "_slider").value;
+            window[desc[0]] =
+                document.getElementById(desc[0] + "_slider").value;
         } else {
             window[desc[0]] = -1;
         }
@@ -46,8 +53,10 @@ function checkbox_onclick_function(id, value) {
 
 
 /**
- * @description Sets the map to center on the user.
- */
+* @description Sets the map to center on the user.
+* @param {object} position - HTML5 returned Geoposition object.
+* @fires initialize()
+*/
 function success_function(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
@@ -60,7 +69,9 @@ function success_function(position) {
 }
 
 /**
-* @description If Geolocation is unavailable sets the map to center on Gold Coast.
+* @description If Geolocation is unavailable sets
+   the map to center on Brisbane.
+* @fires initialize()
 */
 function error_function() {
     var latitude = -27.470880;
@@ -74,6 +85,8 @@ function error_function() {
 
 /**
 * @description Initialise map panel.
+* @param {object} map_options - Map display options.
+* @fires update_zoom()
 */
 function initialize(map_options) {
     //Testing
@@ -94,7 +107,8 @@ function initialize(map_options) {
 }
 
 /**
-* @description Queries for new data based on current zoom level and updates heatmap.
+* @description Queries for new data based on current zoom 
+               level and updates heatmap.
 */
 function update_zoom() {
     var bounds = MAP.getBounds().toUrlValue(7).split(",");
@@ -116,11 +130,13 @@ function update_zoom() {
 
 
 /**
-* 
+* @description Prepares JSON feed data for plotting.
+* @param {string} data - JSON feed of data.
+* @returns {array} Holds an array of point objects with location coordinates
+                   and point weighting
 */
 function get_heatmap_data(data) {
     var heatmap_data = [];
-    console.log(data.length);
     for (var i = 0; i < data.length; i++) {
         var pos = new google.maps.LatLng(data[i]["lat"],
                                          data[i]["long"]);
@@ -131,15 +147,16 @@ function get_heatmap_data(data) {
         };
         heatmap_data.push(weightedLoc);
     }
-
     return heatmap_data;
 }
 
 
 
 if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(error_function, error_function);
-} 
+    navigator.geolocation.getCurrentPosition(success_function, error_function);
+}
 else {
-    window.alert('It seems like Geolocation, which is required for this page, is not enabled in your browser.');
+    /*jshint multistr: true */
+    window.alert('It seems like Geolocation, which is required for this page, \
+        is not enabled in your browser.');
 }

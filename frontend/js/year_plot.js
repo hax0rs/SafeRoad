@@ -8,16 +8,11 @@
 
 
 /**
-* @description Prepares a JSON feed 
-* @param {string} id - 
-* @param {string} value -
-* @returns {None} 
-* @todo do this
-* @todo do that
-* @example
-    * globalNS.method(5, 15);
-    * // returns 3
-* @requires jQuery-1.11.3
+* @description Prepares year JSON feed from the server in JSChart format.
+* @param {string} json_data - JSON feed from the server
+* @returns {object} Returns data prepared for JSChart plotting.
+* @todo Add provisions for plotting of multiple charts simulatenously
+* @requires ChartJS
 */
 function prepare_year_data (json_data) {
     var prepared_data = {"labels" : [],
@@ -42,15 +37,10 @@ function prepare_year_data (json_data) {
 }
 
 /**
-* @description Represents a book.
-* @param {string} path - 
-* @returns {None} test
-* @todo do this
-* @todo do that
-* @example
-    * globalNS.method(5, 15);
-    * // returns 3
-* @requires jQuery
+* @description Loads and plots the data.
+* @param {string} path - URL to the API data
+* @returns {None}
+* @todo Implement error handling.
 * @requires ChartJS
 */
 function get_year_data (path) {
@@ -66,7 +56,3 @@ function get_year_data (path) {
 
 
 var lineChartData = get_year_data(YEAR_API_PATH);
-
-
-
-

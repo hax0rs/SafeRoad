@@ -17,7 +17,7 @@ var MAP_API_PATH = "http://127.0.0.1:8000/sr_data/";
 * @constant
 * @type {string}
 * @default
-* @description some shit
+* @description API base patrh for accessing year data
 */
 var YEAR_API_PATH = "http://127.0.0.1:8000/sr_data/year/";
 
@@ -25,7 +25,7 @@ var YEAR_API_PATH = "http://127.0.0.1:8000/sr_data/year/";
 * @constant
 * @type {string}
 * @default
-* @description swagger constant for swagging shit up
+* @description API Base Path for accessing hour data
 */
 var HOUR_API_PATH = "http://127.0.0.1:8000/sr_data/hour/";
 
@@ -35,7 +35,7 @@ var HOUR_API_PATH = "http://127.0.0.1:8000/sr_data/hour/";
 * @example
  * // value = "January"
  * value = MONTH_TO_STR[1]
-* @description swagger constant for swagging shit up
+* @description MONTH_TO_STR allows the translation of month numbers to names.
 */
 var MONTH_TO_STR = {
     1: "January",

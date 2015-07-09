@@ -7,16 +7,11 @@
 
 
 /**
-* @description Representsfdsfasdkflkasdjflksadjfklasjdlfajlj a book.
-* @since 1/1/1
-* @param {string} json_time_data - 
-* @returns {string} aasdfasf is what it returns
-* @todo do this
-* @todo do that
-* @example
-    * globalNS.method(5, 15);
-    * // returns 3
-* @requires GoogleMapsAPIV3 
+* @description Prepares JSON feed from the server in JSChart format.
+* @param {string} json_time_data - JSON feed from the server
+* @returns {object} Returns data prepared for JSChart plotting.
+* @todo Add provisions for plotting of multiple charts simulatenously
+* @requires ChartJS
 */
 function prepare_time_data (json_time_data) {
     var prepared_data = {"labels" : [],
@@ -38,14 +33,20 @@ function prepare_time_data (json_time_data) {
     return(prepared_data);
 }
 
+/**
+* @description Loads and plots the data.
+* @param {string} path - Path to data on the server
+* @returns {None}
+* @todo Implement error handling.
+* @requires ChartJS
+*/
 function get_time_data (path) {
     $.getJSON(path, function( return_feed ) {
-            // console.log(return_feed);
-            var test = prepare_time_data(return_feed);
-            var ctx1 = document.getElementById("time_canvas").getContext("2d");
-    window.myBar = new Chart(ctx1).Bar(test, {
-      responsive : true
-    });
+        var test = prepare_time_data(return_feed);
+        var ctx1 = document.getElementById("time_canvas").getContext("2d");
+        window.myBar = new Chart(ctx1).Bar(test, {
+            responsive : true
+        });
     });
 }
 
