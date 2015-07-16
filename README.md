@@ -20,7 +20,7 @@
 ##  The Latest Version
 
   The latest live version of the project can be found at:
-  [http://saferoad.info](test)
+  [http://saferoad.info](http://saferoad.info)
 
 ## Screenshots
 
